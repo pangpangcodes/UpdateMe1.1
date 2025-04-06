@@ -1,0 +1,27 @@
+# Dependency directories
+node_modules/
+
+# Environment files
+.env
+
+# Log files
+*.log
+
+# macOS system files
+.DS_Store
+
+# Compiled source
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Backup files
+*.bak
+*~
+
+# IDE-specific files
+.vscode/
+.idea/
+*.swp

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UpdateMe</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <header>
+        <h1>UpdateMe</h1>
+        <nav>
+            <ul class="tabs">
+                <li class="tab active" data-tab="dashboard">Dashboard</li>
+                <li class="tab" data-tab="templates">Templates</li>
+                <li class="tab" data-tab="status">Status Updates</li>
+                <li class="tab" data-tab="settings">Settings</li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Dashboard Tab -->
+        <section id="dashboard" class="tab-content active">
+            <div class="quick-entry">
+                <h2>Quick Entry</h2>
+                <div class="editor-toolbar">
+                    <button type="button" data-command="bold" title="Bold">B</button>
+                    <button type="button" data-command="italic" title="Italic">I</button>
+                    <button type="button" data-command="underline" title="Underline">U</button>
+                    <button type="button" data-command="insertOrderedList" title="Numbered List">1.</button>
+                    <button type="button" data-command="insertUnorderedList" title="Bullet List">•</button>
+                    <select id="emoji-picker">
+                        <option value="">Add Emoji</option>
+                        <option value="🎉">🎉 Tada</option>
+                        <option value="✅">✅ Check</option>
+                        <option value="⚠️">⚠️ Warning</option>
+                        <option value="🚀">🚀 Rocket</option>
+                        <option value="❌">❌ X</option>
+                    </select>
+                </div>
+                <div class="rich-editor" id="quick-entry-editor" contenteditable="true" placeholder="What's happening? (meetings, progress, blockers, etc.)"></div>
+                <button id="add-entry-btn">Add Entry</button>
+            </div>
+            
+            <div class="entries-list">
+                <h2>Today's Entries</h2>
+                <div id="entries-container"></div>
+            </div>
+        </section>
+
+        <!-- Templates Tab -->
+        <section id="templates" class="tab-content">
+            <h2>Templates</h2>
+            <div class="template-list" id="template-list"></div>
+            <button id="new-template-btn">Create New Template</button>
+            
+            <div class="template-editor" id="template-editor" style="display: none;">
+                <h3>Create Template</h3>
+                <input type="text" id="template-name" placeholder="Template Name">
+                <div class="editor-toolbar">
+                    <button type="button" data-command="bold" title="Bold">B</button>
+                    <button type="button" data-command="italic" title="Italic">I</button>
+                    <button type="button" data-command="underline" title="Underline">U</button>
+                    <button type="button" data-command="insertOrderedList" title="Numbered List">1.</button>
+                    <button type="button" data-command="insertUnorderedList" title="Bullet List">•</button>
+                    <select id="template-emoji-picker">
+                        <option value="">Add Emoji</option>
+                        <option value="🎉">🎉 Tada</option>
+                        <option value="✅">✅ Check</option>
+                        <option value="⚠️">⚠️ Warning</option>
+                        <option value="🚀">🚀 Rocket</option>
+                        <option value="❌">❌ X</option>
+                    </select>
+                </div>
+                <div class="rich-editor" id="template-content" contenteditable="true" placeholder="Enter your template content..."></div>
+                <div class="button-group">
+                    <button id="save-template-btn">Save Template</button>
+                    <button id="cancel-template-btn" class="button-outline">Cancel</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Status Updates Tab -->
+        <section id="status" class="tab-content">
+            <h2>Generate Status Update</h2>
+            <div class="status-generator">
+                <div class="form-group">
+                    <label>Choose Template:</label>
+                    <select id="template-select"></select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Time Period:</label>
+                    <input type="date" id="start-date">
+                    <input type="date" id="end-date">
+                </div>
+                
+                <button id="generate-status-btn">Generate</button>
+                
+                <div class="status-preview" id="status-preview"></div>
+                <button id="copy-status-btn" style="display: none;">Copy to Clipboard</button>
+            </div>
+        </section>
+
+        <!-- Settings Tab -->
+        <section id="settings" class="tab-content">
+            <h2>Settings</h2>
+            <div class="settings-form">
+                <div class="card">
+                    <h3>Reminders</h3>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="enable-reminder">
+                            Enable daily reminders
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Reminder time:</label>
+                        <input type="time" id="reminder-time" value="17:00">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="end-of-week">
+                            Enable end-of-week summary
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Fiscal Year Configuration</h3>
+                    <div class="form-group">
+                        <label>Fiscal year starts on:</label>
+                        <select id="fiscal-month">
+                            <option value="0">January</option>
+                            <option value="1">February</option>
+                            <option value="2">March</option>
+                            <option value="3">April</option>
+                            <option value="4">May</option>
+                            <option value="5">June</option>
+                            <option value="6">July</option>
+                            <option value="7">August</option>
+                            <option value="8">September</option>
+                            <option value="9">October</option>
+                            <option value="10">November</option>
+                            <option value="11">December</option>
+                        </select>
+                        <input type="number" id="fiscal-day" min="1" max="31" value="1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Fiscal year format:</label>
+                        <select id="fiscal-format">
+                            <option value="FY-YY">FY-YY (e.g., FY-25)</option>
+                            <option value="FY-YYYY">FY-YYYY (e.g., FY-2025)</option>
+                            <option value="FYXX">FYXX (e.g., FY25)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="use-quarters" checked>
+                            Use fiscal quarters in reports
+                        </label>
+                    </div>
+                </div>
+                
+                <button id="save-settings-btn">Save Settings</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="scripts/storage.js"></script>
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/entries.js"></script>
+    <script src="scripts/templates.js"></script>
+    <script src="scripts/app.js"></script>
+</body>
+</html>
