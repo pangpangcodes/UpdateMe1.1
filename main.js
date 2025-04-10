@@ -18,7 +18,7 @@ function createWindow() {
   mainWindow.loadFile('index.html')
 
   // Uncomment to open DevTools automatically
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 
   // Handle window being closed
   mainWindow.on('closed', function () {
